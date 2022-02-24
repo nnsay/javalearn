@@ -1,0 +1,11 @@
+plugins {
+    id 'com.neuralgalaxy.cloud'
+    id 'com.neuralgalaxy.maven-publish'
+}
+
+dependencies {
+    api(project(":utilities"))
+    api(project(":web"))
+    api(project(":visitor"))
+    api(project(":tracing"))
+}

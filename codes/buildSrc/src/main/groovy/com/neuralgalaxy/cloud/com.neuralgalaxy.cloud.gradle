@@ -1,0 +1,25 @@
+plugins {
+    id 'io.spring.dependency-management'
+    id 'com.neuralgalaxy.java'
+}
+
+ext {
+    springCloudAlibabaVersion = "2.2.2.RELEASE"
+    springCloudVersion = "Hoxton.SR9"
+    springBootVersion = org.springframework.boot.gradle.plugin.SpringBootPlugin.SPRING_BOOT_VERSION
+}
+
+dependencies {
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+}
+
+compileJava.inputs.files(processResources)
+
+dependencyManagement {
+    imports {
+        mavenBom 'com.taobao.arthas:arthas-spring-boot-starter:3.4.8'
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+        mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}

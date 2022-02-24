@@ -1,0 +1,16 @@
+plugins {
+    id 'com.neuralgalaxy.cloud-starter'
+}
+
+group = "com.neuralgalaxy.apps"
+version = "1.0.0-SNAPSHOT"
+
+springBoot {
+    mainClassName = "com.neuralgalaxy.apps.PointApplication"
+}
+
+dependencies {
+    api('com.neuralgalaxy.commons:cloud:1.0.0-SNAPSHOT')
+    api('com.neuralgalaxy.components:stars-api:1.0.0-SNAPSHOT')
+    api('com.neuralgalaxy.components:stars-visitor:1.0.0-SNAPSHOT')
+}

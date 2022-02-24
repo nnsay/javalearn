@@ -1,0 +1,15 @@
+plugins {
+    id 'com.neuralgalaxy.cloud'
+    id 'com.neuralgalaxy.maven-publish'
+}
+
+dependencies {
+    api(project(":utilities"))
+    api("org.springframework.boot:spring-boot-autoconfigure")
+    api("org.aspectj:aspectjweaver")
+    api("org.slf4j:slf4j-api")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-web")
+    testImplementation("commons-io:commons-io:2.11.0")
+}

@@ -1,0 +1,13 @@
+plugins {
+    id 'groovy-gradle-plugin'
+}
+
+repositories {
+    gradlePluginPortal()
+}
+
+dependencies {
+    implementation 'io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE'
+    implementation 'org.springframework.boot:org.springframework.boot.gradle.plugin:2.3.12.RELEASE'
+    implementation 'com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.6'
+}

@@ -1,0 +1,10 @@
+plugins {
+    id 'com.neuralgalaxy.java'
+    id 'com.neuralgalaxy.maven-publish'
+}
+
+dependencies {
+    api("org.springframework:spring-webmvc")
+    api("com.alibaba:fastjson:1.2.79")
+    compileOnly("javax.servlet:servlet-api:2.5")
+}

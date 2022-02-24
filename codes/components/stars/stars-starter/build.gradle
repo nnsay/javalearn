@@ -1,0 +1,15 @@
+plugins {
+    id 'com.neuralgalaxy.cloud-starter'
+}
+
+springBoot {
+    mainClassName = "com.neuralgalaxy.components.users.UsersApplication"
+}
+
+dependencies {
+    api(project(":stars-api"))
+    api(project(":stars-visitor"))
+
+    api('com.neuralgalaxy.commons:cloud:1.0.0-SNAPSHOT')
+    api('com.neuralgalaxy.commons:mysql:1.0.0-SNAPSHOT')
+}

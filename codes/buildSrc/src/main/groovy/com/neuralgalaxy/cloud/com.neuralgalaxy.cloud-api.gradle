@@ -1,0 +1,8 @@
+plugins {
+    id 'com.neuralgalaxy.cloud'
+    id 'com.neuralgalaxy.maven-publish'
+}
+
+dependencies {
+
+}

@@ -1,0 +1,9 @@
+plugins {
+    id 'com.neuralgalaxy.cloud-api'
+}
+
+dependencies {
+    api("com.baomidou:mybatis-plus-extension:3.5.1")
+}
+
+

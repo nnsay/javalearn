@@ -1,0 +1,20 @@
+//plugins {
+//    id "com.github.spotbugs"
+//}
+//
+//spotbugs {
+//    ignoreFailures = false
+//    showStackTraces = true
+//    showProgress = true
+//    effort = 'default'
+//    reportLevel = 'default'
+//    visitors = ['FindSqlInjection', 'SwitchFallthrough']
+//    omitVisitors = ['FindNonShortCircuit']
+//    reportsDir = file("$buildDir/spotbugs")
+////    includeFilter = file("include.xml")
+////    excludeFilter = file("exclude.xml")
+////    baselineFile = file("baseline.xml")
+//    maxHeapSize = '1g'
+//    extraArgs = ['-nested:false']
+//    jvmArgs = ['-Duser.language=cn']
+//}
