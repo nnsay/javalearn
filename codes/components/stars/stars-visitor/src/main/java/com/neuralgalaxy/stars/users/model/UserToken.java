@@ -1,4 +1,4 @@
-package com.neuralgalaxy.stars.users.vo;
+package com.neuralgalaxy.stars.users.model;
 
 import com.neuralgalaxy.commons.visitor.Visitor;
 import lombok.Data;

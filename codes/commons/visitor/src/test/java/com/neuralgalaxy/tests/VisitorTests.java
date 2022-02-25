@@ -1,6 +1,7 @@
 package com.neuralgalaxy.tests;
 
 import com.neuralgalaxy.commons.asserts.GlobalErrors;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -9,11 +10,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@Slf4j
 @SpringBootTest(classes = TestingBootApplication.class)
 @AutoConfigureMockMvc
 public class VisitorTests {
@@ -34,14 +37,20 @@ public class VisitorTests {
                 .andExpect(content().string("anonymous"));
     }
 
-    @Test
-    public void testRequired() throws Exception {
-        String token = this.mock.perform(get("/user/login")
+    public String token() throws Exception{
+        String token = this.mock.perform(post("/user/login")
                         .param("username", "test")
                         .param("passwd", "test"))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andReturn().getResponse().getContentAsString();
+        log.info("token is: {}", token);
+        return token;
+    }
+
+    @Test
+    public void testRequired() throws Exception {
+        String token = this.token();
 
         this.mock.perform(get("/user/require")
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
@@ -52,9 +61,8 @@ public class VisitorTests {
 
     @Test
     public void testSessionTimeout() throws Exception {
-        String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9." +
-                "eyJwYXNzd29yZCI6InRlc3QiLCJpc3MiOiJ0ZXN0IiwiYW5vbnltb3VzIjpmYWxzZSwiZXhwIjoxNjQ1NDI0MjUxLCJ1c2VySWQiOjEsInVzZXJuYW1lIjoidGVzdCJ9." +
-                "ZSfmTiKwKuIFDTre-V761QnFskehKkADBm-QiFtI-UM";
+        String token = token();
+        Thread.sleep(TimeUnit.SECONDS.toMillis(2));
 
         this.mock.perform(get("/user/require").header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
                 .andDo(print())

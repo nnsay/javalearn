@@ -1,12 +1,10 @@
 package com.neuralgalaxy.commons.asserts;
 
-import com.alibaba.fastjson.JSONObject;
 import com.neuralgalaxy.commons.utilities.Locales;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.http.HttpStatus;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
 /**
@@ -17,6 +15,7 @@ import java.util.Locale;
 @EqualsAndHashCode(callSuper = true)
 public class AssertException extends RuntimeException {
     private int status;
+
     private String code;
     private String messageZh;
     private String messageUs;
@@ -42,12 +41,5 @@ public class AssertException extends RuntimeException {
     public String getMessage() {
         Locale locale = Locales.mustGet();
         return Locale.CHINA.equals(locale) || Locale.CHINESE.equals(locale) ? this.getMessageZh() : this.getMessageUs();
-    }
-
-    public byte[] json() {
-        JSONObject json = new JSONObject();
-        json.put("code", this.getCode());
-        json.put("message", this.getMessage());
-        return json.toJSONString().getBytes(StandardCharsets.UTF_8);
     }
 }

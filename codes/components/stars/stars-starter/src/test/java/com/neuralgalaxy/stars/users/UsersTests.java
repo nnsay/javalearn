@@ -1,12 +1,9 @@
 package com.neuralgalaxy.stars.users;
 
 import com.alibaba.fastjson.JSON;
-import com.neuralgalaxy.commons.visitor.Visitor;
-import com.neuralgalaxy.commons.web.WebAutoConfiguration;
 import com.neuralgalaxy.stars.StarsApplication;
-import com.neuralgalaxy.stars.users.vo.UserLoginVo;
+import com.neuralgalaxy.stars.users.model.UserLoginModel;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.Header;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -29,7 +26,7 @@ public class UsersTests {
 
     @Test
     public void testLoginEmail() throws Exception {
-        UserLoginVo user = new UserLoginVo();
+        UserLoginModel user = new UserLoginModel();
         user.setUsername("org1@neuralgalaxy.com");
         user.setPasswd("testiest");
 
@@ -43,7 +40,7 @@ public class UsersTests {
 
     @Test
     public void testLoginByUserName() throws Exception {
-        UserLoginVo user = new UserLoginVo();
+        UserLoginModel user = new UserLoginModel();
         user.setUsername("haiker");
         user.setPasswd("testiest");
         String token = this.mock.perform(post("/users/login").content(JSON.toJSONBytes(user)))

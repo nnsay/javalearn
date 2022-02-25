@@ -44,8 +44,7 @@ public class MessageConverterTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("test")) //正常字段
                 .andExpect(jsonPath("$.password").doesNotExist()) //不允许返回字段
-                .andExpect(jsonPath("$.nianling").value(18)) //修改字段
-                .andExpect(jsonPath("$.members").isArray());
+                .andExpect(jsonPath("$.nianling").value(18)); //修改字段
         ;
     }
 }

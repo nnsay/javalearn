@@ -1,13 +1,13 @@
 package com.neuralgalaxy.stars.users.service;
 
-import com.neuralgalaxy.stars.user.dto.UserDo;
+import com.neuralgalaxy.stars.user.model.UserModel;
+import com.neuralgalaxy.stars.users.dao.entity.UserEntity;
 import com.neuralgalaxy.stars.user.service.UserService;
 import com.neuralgalaxy.stars.users.dao.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Optional;
+import org.springframework.cglib.beans.BeanCopier;
 
 /**
  * 用户服务
@@ -22,24 +22,34 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
 
-    @Override
-    public UserDo getUser(long userId) {
-        log.debug("get user {}", userId);
-        return userMapper.selectById(userId);
+    private static final BeanCopier COPIER = BeanCopier.create(UserModel.class, UserEntity.class, false);
+    private static final BeanCopier COPIER2 = BeanCopier.create(UserEntity.class, UserModel.class, false);
+
+    private UserModel toModel(UserEntity entity) {
+        UserModel userModel = new UserModel();
+        COPIER2.copy(entity, userModel, null);
+        return userModel;
     }
 
     @Override
-    public UserDo getUserByName(String name) {
-        UserDo userDo = null;
+    public UserModel getUser(long userId) {
+        log.debug("get user {}", userId);
+        UserEntity userEntity = userMapper.selectById(userId);
+        return toModel(userEntity);
+    }
+
+    @Override
+    public UserModel getUserByName(String name) {
+        UserEntity entity = null;
         //email
         if (name.contains("@")) {
-            //DEMO userDo = userMapper.selectOne((q) -> q.eq(UserDo::getEmail, name));
-            userDo = userMapper.selectByEmail(name);
+            entity = userMapper.selectOne((q) -> q.eq(UserEntity::getEmail, name));
         }
         //name
         else {
-            userDo = userMapper.selectByName(name);
+            entity = userMapper.selectByName(name);
         }
-        return userDo;
+        return toModel(entity);
     }
+
 }

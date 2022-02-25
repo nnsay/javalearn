@@ -1,6 +1,5 @@
 package com.neuralgalaxy.commons.visitor.jwt;
 
-import com.alibaba.fastjson.JSON;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -8,21 +7,23 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.neuralgalaxy.commons.asserts.Asserts;
 import com.neuralgalaxy.commons.asserts.GlobalErrors;
 import com.neuralgalaxy.commons.visitor.Visitor;
 import com.neuralgalaxy.commons.visitor.VisitorSerializer;
 import com.neuralgalaxy.commons.visitor.VisitorStorage;
 import com.neuralgalaxy.commons.visitor.config.VisitorProperties;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.util.Assert;
 
-import java.lang.instrument.IllegalClassFormatException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Modifier;
+import java.io.IOException;
 import java.util.Base64;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.UUID;
 
 /**
@@ -45,6 +46,8 @@ public class JwtVisitorSerializer implements VisitorSerializer {
     VisitorProperties config;
 
     VisitorStorage storage;
+
+    ObjectMapper mapper = Jackson2ObjectMapperBuilder.json().failOnUnknownProperties(false).build();
 
     public JwtVisitorSerializer(VisitorProperties config, String applicationName, VisitorStorage storage) throws Exception {
         this.config = config;
@@ -91,7 +94,7 @@ public class JwtVisitorSerializer implements VisitorSerializer {
         setExpireTime(builder);
 
         String token = builder
-                .withPayload(JSON.parseObject(JSON.toJSONString(visitor)))
+                .withPayload(mapper.convertValue(visitor, HashMap.class))
                 .sign(algorithm);
 
         if (this.storage != null) {
@@ -101,7 +104,7 @@ public class JwtVisitorSerializer implements VisitorSerializer {
     }
 
     @Override
-    public Visitor decode(String ticket) {
+    public Visitor decode(String ticket)  {
         DecodedJWT jwt;
         try {
             jwt = this.verifier.verify(ticket);
@@ -114,7 +117,13 @@ public class JwtVisitorSerializer implements VisitorSerializer {
         }
 
         byte[] payload = Base64.getDecoder().decode(jwt.getPayload());
-        Visitor visitor = JSON.parseObject(payload, this.config.getEntityClassName());
+        Visitor visitor = null;
+        try {
+            visitor = mapper.readValue(payload, this.config.getEntityClassName());
+        } catch (IOException e) {
+            log.error("reader jwt payload error", e);
+            throw GlobalErrors.SERVICE_UNAVAILABLE;
+        }
 
         String keyId = jwt.getKeyId();
         Asserts.isTrue(this.storage == null || this.storage.verify(visitor, keyId),

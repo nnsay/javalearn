@@ -1,9 +1,10 @@
 package com.neuralgalaxy.commons.web;
 
-import com.neuralgalaxy.commons.web.fastjson.FastJsonConfigurer;
+import com.neuralgalaxy.commons.web.resolver.MessageService;
 import com.neuralgalaxy.commons.web.resolver.OverallExceptionResolver;
 import com.neuralgalaxy.commons.web.sentinel.SentinelConfiguration;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
@@ -21,15 +22,10 @@ import org.springframework.context.annotation.Configuration;
 public class WebAutoConfiguration {
 
     @Bean
-    public FastJsonConfigurer fastjsonConfigurer() {
-        log.info("Enable fastjson converters");
-        return new FastJsonConfigurer();
-    }
-
-    @Bean
-    public OverallExceptionResolver overallExceptionResolver() {
+    public OverallExceptionResolver overallExceptionResolver(
+            @Autowired(required = false) MessageService messageService) {
         log.info("Enable overall exception resolver");
-        return new OverallExceptionResolver();
+        return new OverallExceptionResolver(messageService);
     }
 
     @Bean

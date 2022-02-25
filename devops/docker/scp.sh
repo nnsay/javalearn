@@ -15,10 +15,14 @@ for item in ${items[@]}; do
   fi
 done
 
-ssh root@master01 docker-compose up -d
+remote() {
+  ssh root@master01 $*
+}
 
-ssh root@master01 docker ps -a
+retmoe docker-compose down
+#remote docker rmi root_sentinel -f
+remote docker system prune -f
 
-ssh root@master01
-
-mbind: Operation not permitted
+remote docker-compose up -d
+remote docker ps -a
+remote  docker-compose logs -f

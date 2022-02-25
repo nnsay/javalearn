@@ -1,7 +1,7 @@
 package com.neuralgalaxy.stars.users.dao.mapper;
 
 import com.neuralgalaxy.commons.mysql.ExtensionMapper;
-import com.neuralgalaxy.stars.user.dto.UserDo;
+import com.neuralgalaxy.stars.users.dao.entity.UserEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -10,10 +10,8 @@ import org.apache.ibatis.annotations.Select;
  * @author <a href="mailto:chenxilzx1@gmail.com">theonefx</a>
  */
 @Mapper
-public interface UserMapper extends ExtensionMapper<UserDo> {
+public interface UserMapper extends ExtensionMapper<UserEntity> {
 
-    UserDo selectByName(@Param("username") String username);
+    UserEntity selectByName(@Param("username") String username);
 
-    @Select("select * from Users where email = #{email}")
-    UserDo selectByEmail(@Param("email") String email);
 }

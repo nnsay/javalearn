@@ -1,7 +1,6 @@
 package com.neuralgalaxy.commons.visitor;
 
-
-import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 系统访问用户
@@ -26,7 +25,7 @@ public interface Visitor {
      *
      * @return T/F
      */
-    @JSONField(serialize = false)
+    @JsonIgnore
     default boolean isAnonymous() {
         return 0 == getId();
     }

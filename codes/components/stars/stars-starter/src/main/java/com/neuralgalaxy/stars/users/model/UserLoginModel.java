@@ -1,4 +1,4 @@
-package com.neuralgalaxy.stars.users.vo;
+package com.neuralgalaxy.stars.users.model;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Data;
@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @Data
 @Tag(name = "userLogin", description = "用户登录信息")
-public class UserLoginVo {
+public class UserLoginModel {
 
     String org;
     String username;

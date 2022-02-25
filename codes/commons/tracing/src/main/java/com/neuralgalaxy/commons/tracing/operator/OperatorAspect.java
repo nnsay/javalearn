@@ -1,13 +1,16 @@
 package com.neuralgalaxy.commons.tracing.operator;
 
-import com.alibaba.fastjson.JSONPath;
+import com.jayway.jsonpath.JsonPath;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,7 +44,7 @@ public class OperatorAspect {
                 tracing.value();
         try {
             String message = tracing.value();
-            Map<String, Object> args = Map.of("args", point.getArgs());
+            Map<String, Object> args = Map.of("args", Arrays.asList(point.getArgs()));
 
             if (!tracing.dynamic()) {
                 server.log(action, message, args);
@@ -54,6 +57,7 @@ public class OperatorAspect {
                     args.putAll(gargs);
                 }
             }
+
             message = evel(message, args);
             server.log(action, message, args);
         } catch (Exception e) {
@@ -70,7 +74,7 @@ public class OperatorAspect {
             String group = m.group();
             int idx = sb.indexOf(group);
             String path = group.substring(1, group.length() - 1);
-            String value = String.valueOf(JSONPath.compile(path).eval(args));
+            String value = Objects.toString(JsonPath.compile(path).read(args));
             sb.replace(idx, idx + group.length(), value);
         }
         return sb.toString();

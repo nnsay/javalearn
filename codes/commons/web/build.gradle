@@ -7,6 +7,7 @@ dependencies {
     api(project(":utilities"))
 
     api("org.springframework.boot:spring-boot-autoconfigure")
+    api("org.springframework.boot:spring-boot-starter-web")
     compileOnly("javax.servlet:servlet-api:2.5")
 
     api("com.alibaba.csp:sentinel-spring-webmvc-adapter")
@@ -14,5 +15,4 @@ dependencies {
     api("org.slf4j:slf4j-api")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-web")
 }

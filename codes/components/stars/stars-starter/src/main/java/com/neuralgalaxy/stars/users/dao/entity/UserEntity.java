@@ -1,4 +1,4 @@
-package com.neuralgalaxy.stars.user.dto;
+package com.neuralgalaxy.stars.users.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("Users")
-public class UserDo implements Serializable {
+public class UserEntity implements Serializable {
     /**
      * 用户ID
      */

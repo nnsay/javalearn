@@ -1,6 +1,6 @@
 package com.neuralgalaxy.tests.vo;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 
 import java.util.List;
@@ -14,10 +14,10 @@ public class TestEntity {
 
     String name;
 
-    @JSONField(serialize = false)
+    @JsonIgnore
     String password;
 
-    @JSONField(name = "nianling")
+    @JsonProperty("nianling")
     Integer age;
 
     List<Integer> members;

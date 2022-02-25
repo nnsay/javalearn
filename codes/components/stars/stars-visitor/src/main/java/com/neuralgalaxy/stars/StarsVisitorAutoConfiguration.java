@@ -2,7 +2,7 @@ package com.neuralgalaxy.stars;
 
 import com.neuralgalaxy.commons.visitor.config.VisitorAutoConfiguration;
 import com.neuralgalaxy.commons.visitor.config.VisitorProperties;
-import com.neuralgalaxy.stars.users.vo.UserToken;
+import com.neuralgalaxy.stars.users.model.UserToken;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
