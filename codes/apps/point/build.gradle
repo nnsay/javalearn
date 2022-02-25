@@ -13,4 +13,7 @@ dependencies {
     api('com.neuralgalaxy.commons:cloud:1.0.0-SNAPSHOT')
     api('com.neuralgalaxy.components:stars-api:1.0.0-SNAPSHOT')
     api('com.neuralgalaxy.components:stars-visitor:1.0.0-SNAPSHOT')
+
+    //zuul
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
 }

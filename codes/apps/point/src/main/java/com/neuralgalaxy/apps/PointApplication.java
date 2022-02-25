@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.service.ApiInfo;
@@ -20,6 +21,7 @@ import static springfox.documentation.builders.PathSelectors.ant;
  */
 @EnableDiscoveryClient
 @SpringBootApplication
+@EnableZuulProxy
 public class PointApplication {
 
     private Predicate<String> starsApi() {
