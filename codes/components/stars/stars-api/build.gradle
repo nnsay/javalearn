@@ -1,9 +1,10 @@
 plugins {
     id 'com.neuralgalaxy.cloud-api'
+    id 'com.neuralgalaxy.maven-publish'
 }
 
 dependencies {
-    api("com.baomidou:mybatis-plus-extension:3.5.1")
+
 }
 
 

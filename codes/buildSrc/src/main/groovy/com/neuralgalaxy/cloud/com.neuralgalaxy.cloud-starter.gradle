@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+
     implementation('org.springframework.boot:spring-boot-starter')
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.boot:spring-boot-starter-actuator')
@@ -26,6 +27,10 @@ dependencies {
     //swagger
     implementation('io.springfox:springfox-boot-starter:3.0.0')
     implementation('org.springframework.boot:spring-boot-starter-validation')
+
+    implementation('ch.qos.logback:logback-classic')
+    implementation('org.slf4j:jul-to-slf4j')
+    implementation('org.slf4j:log4j-over-slf4j')
 }
 
 springBoot {

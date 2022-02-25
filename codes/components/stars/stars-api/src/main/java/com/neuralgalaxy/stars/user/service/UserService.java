@@ -1,6 +1,7 @@
 package com.neuralgalaxy.stars.user.service;
 
 
+import com.neuralgalaxy.stars.user.model.UserLoginModel;
 import com.neuralgalaxy.stars.user.model.UserModel;
 
 /**
@@ -8,6 +9,14 @@ import com.neuralgalaxy.stars.user.model.UserModel;
  * @version 20220217
  */
 public interface UserService {
+
+    /**
+     * 用户登录
+     * @param login form
+     * @return token
+     */
+    String login(UserLoginModel login);
+
     /**
      * 获取用户信息
      *

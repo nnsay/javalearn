@@ -1,5 +1,7 @@
 package com.neuralgalaxy.stars.user.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -9,7 +11,9 @@ import java.time.LocalDateTime;
  * @version 20220225
  */
 @Data
-public class UserModel  {
+@ApiModel(description = "用户模型")
+public class UserModel {
+
     private Integer id;
     private String email;
     private String username;

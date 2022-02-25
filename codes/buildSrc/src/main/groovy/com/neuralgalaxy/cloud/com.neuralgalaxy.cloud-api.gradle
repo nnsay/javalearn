@@ -4,5 +4,6 @@ plugins {
 }
 
 dependencies {
-
+    implementation "io.swagger:swagger-annotations:1.5.20"
+    implementation "io.swagger.core.v3:swagger-annotations:2.1.2"
 }
