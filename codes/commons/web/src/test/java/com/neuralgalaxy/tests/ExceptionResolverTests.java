@@ -31,6 +31,6 @@ public class ExceptionResolverTests {
     public void testUserDefined() throws Exception {
         this.mock.perform(get("/exception/defined-user"))
                 .andExpect(status().isInternalServerError())
-                .andExpect(jsonPath("$.code").value("20001"));
+                .andExpect(jsonPath("$.error").value("20001"));
     }
 }

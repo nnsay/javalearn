@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
     api(project(":utilities"))
+    api(project(":message"))
 
     api("org.springframework.boot:spring-boot-autoconfigure")
     api("org.springframework.boot:spring-boot-starter-web")

@@ -12,7 +12,4 @@ dependencies {
 
     api('com.neuralgalaxy.commons:cloud:1.0.0-SNAPSHOT')
     api('com.neuralgalaxy.commons:mysql:1.0.0-SNAPSHOT')
-
-    //security
-    //api('org.springframework.boot:spring-boot-starter-security')
 }

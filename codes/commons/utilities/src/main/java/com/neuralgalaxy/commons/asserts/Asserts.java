@@ -13,9 +13,13 @@ public class Asserts {
     public static void notNull(Object o, AssertException code) {
         if (o == null) {
             throw code;
-        }else if (o instanceof Optional && ((Optional<?>) o).isEmpty()) {
+        } else if (o instanceof Optional && ((Optional<?>) o).isEmpty()) {
             throw code;
         }
+    }
+
+    public static void hasText(String o, AssertException code) {
+        isTrue(StringUtils.hasText(o), code);
     }
 
     public static void notEmpty(String str, AssertException code) {

@@ -1,0 +1,14 @@
+plugins {
+    id 'com.neuralgalaxy.cloud'
+    id 'com.neuralgalaxy.maven-publish'
+}
+
+dependencies {
+    api(project(":utilities"))
+
+    api("org.springframework.boot:spring-boot-autoconfigure")
+    api("org.springframework.boot:spring-boot-starter-web")
+    api('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config')
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+}

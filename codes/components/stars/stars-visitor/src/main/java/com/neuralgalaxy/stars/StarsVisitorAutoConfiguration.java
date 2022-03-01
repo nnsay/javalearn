@@ -1,8 +1,8 @@
 package com.neuralgalaxy.stars;
 
-import com.neuralgalaxy.commons.visitor.config.VisitorAutoConfiguration;
+import com.neuralgalaxy.commons.visitor.VisitorAutoConfiguration;
 import com.neuralgalaxy.commons.visitor.config.VisitorProperties;
-import com.neuralgalaxy.stars.users.model.UserToken;
+import com.neuralgalaxy.stars.users.model.UserTokenModel;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +20,7 @@ public class StarsVisitorAutoConfiguration {
     @Bean
     public VisitorProperties config() {
         VisitorProperties config = new VisitorProperties();
-        config.setEntityClassName(UserToken.class);
+        config.setUserModel(UserTokenModel.class);
         return config;
     }
 

@@ -1,4 +1,4 @@
-package com.neuralgalaxy.tests.vo;
+package com.neuralgalaxy.tests.model;
 
 import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
@@ -10,7 +10,7 @@ import java.util.List;
  * @version 20220222
  */
 @Data
-public class TestEntity {
+public class TestModel {
 
     String name;
 

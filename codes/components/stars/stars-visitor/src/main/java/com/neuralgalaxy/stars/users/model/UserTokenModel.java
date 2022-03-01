@@ -10,13 +10,12 @@ import lombok.Data;
  * @version 20220223
  */
 @Data
-public class UserToken implements Visitor {
+public class UserTokenModel implements Visitor {
 
     /**
      * 用户信息
      */
     long id;
-
 
     /**
      * 组织ID

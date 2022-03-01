@@ -1,10 +1,12 @@
-package com.neuralgalaxy.commons.web.resolver;
+package com.neuralgalaxy.commons.message;
 
 import java.util.Locale;
 
 /**
+ * 消息覆盖内容获取
+ *
  * @author <a href="mailto:ni@renzhen.la">haiker</a>
- * @version 20220225
+ * @version 20220227
  */
 public interface MessageService {
 

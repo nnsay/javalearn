@@ -8,10 +8,12 @@ dependencies {
     api(project(":web"))
 
     api("org.springframework.boot:spring-boot-autoconfigure")
-    api("org.springframework:spring-webmvc")
     api("org.slf4j:slf4j-api")
     api('com.auth0:java-jwt:3.18.3')
     compileOnly("javax.servlet:servlet-api:2.5")
+
+    //security
+    api('org.springframework.boot:spring-boot-starter-security')
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-starter-web")

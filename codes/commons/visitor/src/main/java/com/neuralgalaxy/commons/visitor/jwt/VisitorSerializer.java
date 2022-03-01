@@ -1,6 +1,6 @@
-package com.neuralgalaxy.commons.visitor;
+package com.neuralgalaxy.commons.visitor.jwt;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.neuralgalaxy.commons.visitor.Visitor;
 
 /**
  * @author haiker <a href="mailto:wo@renzhen.la">wo@renzhen.la</a>
@@ -22,5 +22,5 @@ public interface VisitorSerializer {
      * @param ticket ticket value
      * @return visitor object
      */
-    Visitor decode(String ticket) throws JsonProcessingException;
+    Visitor decode(String ticket) ;
 }

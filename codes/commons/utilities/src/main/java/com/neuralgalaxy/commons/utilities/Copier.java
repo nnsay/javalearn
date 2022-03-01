@@ -2,6 +2,7 @@ package com.neuralgalaxy.commons.utilities;
 
 import org.springframework.cglib.beans.BeanCopier;
 
+import java.lang.reflect.Type;
 import java.util.function.Supplier;
 
 /**
@@ -10,29 +11,35 @@ import java.util.function.Supplier;
  * @author <a href="mailto:ni@renzhen.la">haiker</a>
  * @version 20220226
  */
-public class Copier<Model, Entity> {
+public class Copier<M, E> {
 
-    private final BeanCopier entityCopier;
-    private Supplier<Entity> newEntity;
+    private BeanCopier entityCopier;
+    private Supplier<E> newEntity;
 
-    private final BeanCopier modelCopier;
-    private Supplier<Model> newModel;
+    private BeanCopier modelCopier;
+    private Supplier<M> newModel;
 
-    public Copier(Class<Model> module, Supplier<Model> newModel, Class<Entity> entity, Supplier<Entity> newEntity) {
-        this.entityCopier = BeanCopier.create(module, entity, false);
-        this.modelCopier = BeanCopier.create(entity, module, false);
+    private Copier(Supplier<M> newModel, Supplier<E> newEntity) {
+        Class<M> modelClass = (Class<M>) newEntity.get().getClass();
+        Class<E> entityClass = (Class<E>) newModel.get().getClass();
+        entityCopier = BeanCopier.create(entityClass, modelClass, false);
+        modelCopier = BeanCopier.create(modelClass, entityClass, false);
         this.newEntity = newEntity;
         this.newModel = newModel;
     }
 
-    public Entity toEntity(Model model) {
-        Entity entity = this.newEntity.get();
+    public static <M, E> Copier<M, E> create(Supplier<M> modelMaker, Supplier<E> entityMaker) {
+        return new Copier<M, E>(modelMaker, entityMaker);
+    }
+
+    public E toEntity(M model) {
+        E entity = this.newEntity.get();
         entityCopier.copy(model, entity, null);
         return entity;
     }
 
-    public Model toModel(Entity entity) {
-        Model model = this.newModel.get();
+    public M toModel(E entity) {
+        M model = this.newModel.get();
         modelCopier.copy(entity, model, null);
         return model;
     }

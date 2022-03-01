@@ -3,19 +3,15 @@ package com.neuralgalaxy.commons.web.resolver;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.neuralgalaxy.commons.asserts.AssertException;
 import com.neuralgalaxy.commons.asserts.GlobalErrors;
-import com.neuralgalaxy.commons.utilities.Locales;
+import com.neuralgalaxy.commons.message.MessageService;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.OutputStream;
-import java.util.Locale;
-import java.util.Map;
 
 /**
  * 全体异常配置
@@ -25,40 +21,32 @@ import java.util.Map;
 @Slf4j
 public class OverallExceptionResolver implements HandlerExceptionResolver {
 
-    private MessageService messageService;
-    private ObjectMapper om = Jackson2ObjectMapperBuilder.json().build();
+    MessageService messageService;
+    private ObjectMapper mapper;
 
-    public OverallExceptionResolver(MessageService messageService) {
+    public OverallExceptionResolver(MessageService messageService, ObjectMapper mapper) {
         this.messageService = messageService;
+
+        Jackson2ObjectMapperBuilder builder = Jackson2ObjectMapperBuilder.json();
+        builder.serializerByType(AssertException.class, new AssertExceptionJsonSerializer(this.messageService));
+        if (mapper != null) {
+            builder.configure(mapper);
+        }
+        this.mapper = builder.build();
     }
 
     @Override
     @SneakyThrows
-    public ModelAndView resolveException(HttpServletRequest req, HttpServletResponse resp, Object handler, Exception ex) {
-        OutputStream out = resp.getOutputStream();
-        if (ex instanceof AssertException) {
+    public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception e) {
+        if (e instanceof AssertException) {
             //do nothing
         } else {
-            log.error("{}", req.getRequestURI(), ex);
-            ex = GlobalErrors.SERVICE_UNAVAILABLE;
+            log.error("[OverallExceptionHandler] {}: {}", request.getRequestURI(), handler.getClass().getName(), e);
+            e = GlobalErrors.SERVICE_UNAVAILABLE;
         }
-
-        resp.setStatus(((AssertException) ex).getStatus());
-        resp.setContentType("application/json;charset=UTF-8");
-
-        String code = ((AssertException) ex).getCode();
-        String message = ex.getMessage();
-        if (messageService != null) {
-            Locale locale = Locales.mustGet();
-            String messageOverwrite = messageService.getOverwriteMessage(locale, code);
-            if (StringUtils.hasText(messageOverwrite)) {
-                message = messageOverwrite;
-            }
-        }
-        byte[] json = om.writerWithDefaultPrettyPrinter()
-                .writeValueAsBytes(Map.of("code", code, "message", message));
-        out.write(json);
-
+        response.setStatus(((AssertException) e).getStatus());
+        response.setContentType("application/json;charset=UTF-8");
+        mapper.writeValue(response.getOutputStream(), e);
         return new ModelAndView();
     }
 }

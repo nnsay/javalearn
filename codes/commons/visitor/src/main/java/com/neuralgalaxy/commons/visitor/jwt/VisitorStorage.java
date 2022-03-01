@@ -1,4 +1,6 @@
-package com.neuralgalaxy.commons.visitor;
+package com.neuralgalaxy.commons.visitor.jwt;
+
+import com.neuralgalaxy.commons.visitor.Visitor;
 
 /**
  * jwt id 存储地址，用于强制下线操作

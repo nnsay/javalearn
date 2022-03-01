@@ -9,11 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public interface Visitor {
     /**
-     * visitor对象存储在request位置
-     */
-    String REQUEST_ATTRIBUTE_NAME = "__visitor__";
-
-    /**
      * 用户ID
      *
      * @return userId

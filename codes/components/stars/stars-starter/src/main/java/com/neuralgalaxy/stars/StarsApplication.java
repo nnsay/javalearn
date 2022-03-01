@@ -25,7 +25,7 @@ import static springfox.documentation.builders.PathSelectors.*;
 public class StarsApplication {
 
     private Predicate<String> starsApi() {
-        return ant("/users/**")
+        return ant("/user/**")
                 .or(ant("/auth/**"));
     }
     private ApiInfo apiInfo(String applicationName) {
