@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 用户登录信息
  *
@@ -12,7 +14,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel(description = "用户登录信息")
-public class UserLoginModel {
+public class UserLoginModel implements Serializable {
 
     @ApiModelProperty
     String org;

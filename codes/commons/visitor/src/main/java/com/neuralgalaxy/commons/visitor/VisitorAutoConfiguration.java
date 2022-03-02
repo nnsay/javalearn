@@ -10,9 +10,10 @@ import com.neuralgalaxy.commons.visitor.jwt.VisitorStorage;
 import com.neuralgalaxy.commons.visitor.jwt.filter.JwtTokenFilter;
 import com.neuralgalaxy.commons.visitor.jwt.serializer.JwtVisitorSerializer;
 import com.neuralgalaxy.commons.visitor.role.PermissionChecker;
-import com.neuralgalaxy.commons.visitor.role.PermissionService;
+import com.neuralgalaxy.commons.visitor.role.PermissionHandler;
 import com.neuralgalaxy.commons.web.WebAutoConfiguration;
 import com.neuralgalaxy.commons.web.resolver.OverallExceptionResolver;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -21,8 +22,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,6 +34,7 @@ import java.util.List;
  *
  * @author haiker
  */
+@Slf4j
 @Configuration
 @Import(VisitorWebSecurityConfiguration.class)
 @EnableConfigurationProperties(VisitorProperties.class)
@@ -53,8 +53,8 @@ public class VisitorAutoConfiguration implements WebMvcConfigurer {
     }
 
     @Bean("sec")
-    public PermissionService customerSecurityExpress(VisitorProperties config, PermissionChecker checker) {
-        return new PermissionService(config.getApplicationName(), checker);
+    public PermissionHandler customerSecurityExpress(VisitorProperties config, PermissionChecker checker) {
+        return new PermissionHandler(config.getApplicationName(), checker);
     }
 
     @Bean
@@ -64,11 +64,12 @@ public class VisitorAutoConfiguration implements WebMvcConfigurer {
             @Autowired(required = false) VisitorStorage storage,
             @Autowired(required = false) ObjectMapper mapper
     ) {
+        log.info("use default visitor serializer");
         return new JwtVisitorSerializer(config, storage, mapper);
     }
 
     @Bean
-    public JwtTokenFilter jwtTokenFilter(VisitorSerializer visitorSerializer, OverallExceptionResolver resolver) {
+    public JwtTokenFilter jwtTokenFilter(VisitorSerializer visitorSerializer) {
         return new JwtTokenFilter(visitorSerializer, resolver);
     }
 

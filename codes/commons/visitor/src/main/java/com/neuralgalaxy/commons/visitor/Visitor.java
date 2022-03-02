@@ -2,12 +2,14 @@ package com.neuralgalaxy.commons.visitor;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.io.Serializable;
+
 /**
  * 系统访问用户
  *
  * @author haiker
  */
-public interface Visitor {
+public interface Visitor extends Serializable {
     /**
      * 用户ID
      *

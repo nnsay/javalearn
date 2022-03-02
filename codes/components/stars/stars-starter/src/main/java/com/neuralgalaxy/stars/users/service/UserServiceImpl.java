@@ -11,7 +11,7 @@ import com.neuralgalaxy.stars.users.config.UserConfiguration;
 import com.neuralgalaxy.stars.users.dao.entity.UserEntity;
 import com.neuralgalaxy.stars.user.service.UserService;
 import com.neuralgalaxy.stars.users.dao.mapper.UserMapper;
-import com.neuralgalaxy.stars.users.model.UserTokenModel;
+import com.neuralgalaxy.stars.auth.model.UserTokenModel;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;

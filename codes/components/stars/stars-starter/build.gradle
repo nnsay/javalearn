@@ -8,7 +8,6 @@ springBoot {
 
 dependencies {
     api(project(":stars-api"))
-    api(project(":stars-visitor"))
 
     api('com.neuralgalaxy.commons:cloud:1.0.0-SNAPSHOT')
     api('com.neuralgalaxy.commons:mysql:1.0.0-SNAPSHOT')

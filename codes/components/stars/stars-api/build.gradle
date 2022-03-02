@@ -4,7 +4,5 @@ plugins {
 }
 
 dependencies {
-
+    api('com.neuralgalaxy.commons:visitor:1.0.0-SNAPSHOT')
 }
-
-

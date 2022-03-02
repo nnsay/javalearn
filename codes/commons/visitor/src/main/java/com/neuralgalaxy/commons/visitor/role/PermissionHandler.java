@@ -7,12 +7,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * @author <a href="mailto:ni@renzhen.la">haiker</a>
  * @version 20220228
  */
-public class PermissionService {
+public class PermissionHandler {
 
     protected String applicationName;
     protected PermissionChecker permissionChecker;
 
-    public PermissionService(String applicationName, PermissionChecker permissionChecker) {
+    public PermissionHandler(String applicationName, PermissionChecker permissionChecker) {
         this.applicationName = applicationName;
         this.permissionChecker = permissionChecker;
     }

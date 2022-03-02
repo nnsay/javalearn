@@ -5,7 +5,7 @@ plugins {
 
 dependencies {
     api(project(":stars-api"))
-    api('com.neuralgalaxy.commons:visitor:1.0.0-SNAPSHOT')
 
+    api("org.apache.dubbo:dubbo:2.7.8")
     api("jakarta.annotation:jakarta.annotation-api")
 }
