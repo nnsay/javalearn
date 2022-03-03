@@ -4,6 +4,16 @@ plugins {
 }
 
 dependencies {
+    //aws ssm
+    api("software.amazon.awssdk:ssm:2.17.140")
+
+    //aliyun kms
+    api("com.aliyun:aliyun-java-sdk-core:4.5.21")
+    api("com.aliyun:aliyun-java-sdk-kms:2.15.0")
+
+    api("org.springframework.boot:spring-boot-autoconfigure")
+    api("org.springframework.cloud:spring-cloud-context")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-starter-web")
 }
