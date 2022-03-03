@@ -12,7 +12,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.PostConstruct;
 
 /**
  * @author haiker <a href="mailto:wo@renzhen.la">wo@renzhen.la</a>
