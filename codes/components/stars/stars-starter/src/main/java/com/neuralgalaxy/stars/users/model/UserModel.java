@@ -1,9 +1,7 @@
-package com.neuralgalaxy.stars.user.model;
+package com.neuralgalaxy.stars.users.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModel;
 import lombok.Data;
-import lombok.extern.jackson.Jacksonized;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -13,7 +11,6 @@ import java.time.LocalDateTime;
  * @version 20220225
  */
 @Data
-@ApiModel(description = "用户模型")
 public class UserModel implements Serializable {
 
     private Integer id;

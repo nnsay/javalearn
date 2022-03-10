@@ -1,5 +1,4 @@
 rootProject.name = 'stars'
 
-include('stars-api')
 include('stars-visitor')
 include('stars-starter')

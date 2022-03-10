@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.neuralgalaxy.stars.StarsVisitorAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.neuralgalaxy.commons.stars.StarsVisitorAutoConfiguration

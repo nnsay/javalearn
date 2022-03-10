@@ -4,8 +4,6 @@ plugins {
 }
 
 dependencies {
-    api(project(":stars-api"))
-
-    api("org.apache.dubbo:dubbo:2.7.8")
-    api("jakarta.annotation:jakarta.annotation-api")
+    api("org.springframework.cloud:spring-cloud-starter-openfeign")
+    api('com.neuralgalaxy.commons:visitor:1.0.1-SNAPSHOT')
 }

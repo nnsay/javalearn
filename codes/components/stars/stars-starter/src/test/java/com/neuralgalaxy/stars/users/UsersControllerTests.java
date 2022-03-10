@@ -1,10 +1,8 @@
 package com.neuralgalaxy.stars.users;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.nacos.api.naming.pojo.healthcheck.impl.Http;
 import com.neuralgalaxy.stars.StarsApplication;
-import com.neuralgalaxy.stars.user.model.UserLoginModel;
-import io.netty.handler.codec.http.HttpResponseStatus;
+import com.neuralgalaxy.stars.users.model.UserLoginModel;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +11,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @Slf4j
 @AutoConfigureMockMvc
 @SpringBootTest(classes = StarsApplication.class)
-public class UsersTests {
+public class UsersControllerTests {
 
     @Autowired
     private MockMvc mock;

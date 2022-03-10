@@ -1,8 +1,0 @@
-plugins {
-    id 'com.neuralgalaxy.cloud-api'
-    id 'com.neuralgalaxy.maven-publish'
-}
-
-dependencies {
-    api('com.neuralgalaxy.commons:visitor:1.0.0-SNAPSHOT')
-}

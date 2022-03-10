@@ -5,7 +5,9 @@ import com.neuralgalaxy.commons.visitor.jwt.VisitorSerializer;
 import com.neuralgalaxy.commons.web.resolver.OverallExceptionResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.util.StringUtils;
@@ -37,21 +39,28 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
-        final String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (StringUtils.hasText(token)) {
-            Visitor details = null;
-            try {
-                details = serializer.decode(token.substring(7));
-            } catch (Exception e) {
-                resolver.resolveException(request, response, serializer, e);
-                return;
+        // 未认证或者一名用户需要重新获取认证
+        if( null == authentication || authentication instanceof AnonymousAuthenticationToken) {
+            final String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+            if (StringUtils.hasText(token)) {
+
+                Visitor details = null;
+                try {
+                    details = serializer.decode(token.substring(7));
+                } catch (Exception e) {
+                    resolver.resolveException(request, response, serializer, e);
+                    return;
+                }
+
+                PreAuthenticatedAuthenticationToken jwtAuth = new PreAuthenticatedAuthenticationToken(details.getId(), token);
+                jwtAuth.setAuthenticated(true);
+                jwtAuth.setDetails(details);
+                SecurityContextHolder.getContext().setAuthentication(jwtAuth);
             }
-            PreAuthenticatedAuthenticationToken authentication = new PreAuthenticatedAuthenticationToken(details.getId(), token);
-            authentication.setAuthenticated(true);
-            authentication.setDetails(details);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
+
         chain.doFilter(request, response);
     }
 }
