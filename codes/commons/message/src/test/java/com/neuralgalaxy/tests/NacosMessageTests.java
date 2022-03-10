@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @SpringBootTest(args = {
-        "--spring.cloud.nacos.server-addr=mse-9d50eb22-p.nacos-ans.mse.aliyuncs.com:8848",
+        "--spring.cloud.nacos.server-addr=nacos:8848",
         "--spring.cloud.nacos.password=nacos",
         "--spring.cloud.nacos.username=nacos",
         "--message.prefix=demo",

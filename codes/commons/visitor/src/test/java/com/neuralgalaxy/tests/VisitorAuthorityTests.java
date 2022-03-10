@@ -24,12 +24,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         "--visitor.user-model=com.neuralgalaxy.tests.model.UserModel",
         "--visitor.jwt.secret=testsecret",
         "--visitor.jwt.expire-second=2",
-        "--spring.cloud.nacos.server-addr=mse-9d50eb22-p.nacos-ans.mse.aliyuncs.com:8848",
+        "--spring.cloud.nacos.server-addr=nacos:8848",
 }, classes = TestingBootApplication.class)
 @AutoConfigureMockMvc
 public class VisitorAuthorityTests {
+
     @MockBean
     PermissionChecker permissionChecker;
+
 
     @Autowired
     private MockMvc mock;
