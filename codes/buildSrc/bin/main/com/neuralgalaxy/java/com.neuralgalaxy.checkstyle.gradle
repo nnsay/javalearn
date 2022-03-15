@@ -1,0 +1,17 @@
+plugins {
+    id 'checkstyle'
+}
+
+def copyResourceFile(String resource) {
+    File dest = File.createTempFile("checkstyle", ".xml");
+    InputStream source = getClass().getResourceAsStream(resource);
+    dest.withDataOutputStream { os ->
+        os << source
+    }
+    return dest;
+}
+
+checkstyle {
+    configFile = copyResourceFile("/config/checkstyle.xml")
+    showViolations = true
+}

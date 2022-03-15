@@ -1,0 +1,29 @@
+plugins {
+    id 'com.neuralgalaxy.cloud'
+    id 'org.springframework.boot'
+}
+
+dependencies {
+
+    implementation('org.springframework.boot:spring-boot-starter')
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-actuator')
+
+    //nacos 配置中心，注册中心
+    implementation('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config')
+    implementation('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery')
+
+    //sentinel 限流控流
+    implementation('com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel')
+    implementation('com.alibaba.csp:sentinel-datasource-nacos')
+
+    implementation('ch.qos.logback:logback-classic')
+    implementation('org.slf4j:jul-to-slf4j')
+    implementation('org.slf4j:log4j-over-slf4j')
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+springBoot {
+    buildInfo()
+}

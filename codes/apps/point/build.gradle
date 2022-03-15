@@ -13,6 +13,10 @@ dependencies {
     api('com.neuralgalaxy.commons:cloud:1.0.1-SNAPSHOT')
     api('com.neuralgalaxy.components:stars-visitor:1.0.1-SNAPSHOT')
 
+    api('com.neuralgalaxy.commons:mysql:1.0.1-SNAPSHOT')
+    implementation 'com.baomidou:mybatis-plus-generator:3.5.2'
+    implementation 'org.freemarker:freemarker:2.3.31'
+
     //zuul
     //implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
 }

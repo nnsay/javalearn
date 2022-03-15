@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:mysql://mysql:3306/ngiqdev?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: 1qaz
+
+logging:
+  level:
+    com:
+      neuralgalaxy:
+        apps:
+          dao: trace

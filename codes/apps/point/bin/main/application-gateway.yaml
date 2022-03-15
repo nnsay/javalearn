@@ -1,0 +1,5 @@
+zuul:
+  routes:
+    auth:
+      path: /stars/**
+      serviceId: stars

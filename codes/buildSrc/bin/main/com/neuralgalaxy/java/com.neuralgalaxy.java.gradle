@@ -1,0 +1,90 @@
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
+plugins {
+    id 'java'
+    id 'idea'
+    id 'java-library'
+    id 'io.spring.dependency-management'
+    id 'com.neuralgalaxy.checkstyle'
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        credentials {
+            username "${galaxyMavenDevUser}"
+            password "${galaxyMavenDevPasswd}"
+        }
+        url 'https://registry.neuralgalaxy.net/repository/maven-public/'
+    }
+    mavenCentral()
+}
+
+def isRelease() {
+    return project.hasProperty("release")
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    testCompileOnly {
+        extendsFrom testAnnotationProcessor
+    }
+
+    all {
+        resolutionStrategy.eachDependency { details ->
+            if (isRelease() && details.requested.group.startsWith("com.neuralgalaxy")
+                    && details.requested.version.endsWith("-SNAPSHOT")) {
+                details.useVersion details.requested.version.replace("-SNAPSHOT", "-RELEASE")
+                details.because 'product build'
+            }
+        }
+    }
+}
+
+group(rootProject.group)
+version(isRelease() ? rootProject.version.replace("-SNAPSHOT", "-RELEASE") : rootProject.version)
+
+ext {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework:spring-framework-bom:5.2.19.RELEASE"
+    }
+}
+
+dependencies {
+    annotationProcessor("org.projectlombok:lombok:1.18.22")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.22")
+}
+
+jar {
+    manifest {
+        attributes "X-Application-Version": "${project.version}"
+        attributes "X-Application-BuildTime": LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+    }
+}
+
+java {
+    withSourcesJar()
+}
+
+testing {
+    suites {
+        // Configure the built-in test suite
+        test {
+            // Use JUnit Jupiter test framework
+            useJUnitJupiter('5.8.1')
+        }
+    }
+}
+
+tasks.register('currentVersion') {
+    System.out.println(project.version)
+}
