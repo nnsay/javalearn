@@ -34,3 +34,4 @@ out/
 .vscode/
 /devops/kube
 .DS_Store
+**/**/bin
